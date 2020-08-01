@@ -1,4 +1,4 @@
-# 项目链接 [GitHub](https://github.com/XiaoBaiCZ/RecyclerViewExtend/)
+# 项目链接 [GitHub 喜欢请给小星星](https://github.com/XiaoBaiCZ/RecyclerViewExtend/)
 ### 项目目标
 - 提高RecycleView的**使用效率**
 - 无需写Adapter模板
@@ -18,7 +18,7 @@ RecyclerView的扩展，扩展了通用Adapter，通用ViewHolder，统一的配
 ### 使用示例
 ~~~ Kotlin
 //item数据类型
-data class Head(var img: Int)\
+data class Head(var img: Int)
 data class User1(var name: String, var age: Int)
 data class User2(var name: String, var age: Int)
 
@@ -69,3 +69,7 @@ class MainActivity : AppCompatActivity() {
 
 }
 ~~~
+
+### 如喜欢且很有帮助可以请作者吃冰棒哦~~~
+![zfb.jpg](https://upload-images.jianshu.io/upload_images/4191132-ba6603f3825d069f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+

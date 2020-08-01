@@ -1,0 +1,3 @@
+include ':RecyclerViewExtend'
+include ':demo'
+rootProject.name = "LibViewHolderX"

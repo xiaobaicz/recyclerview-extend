@@ -4,6 +4,8 @@
 - 无需写Adapter模板
 - 只需关注**数据源 & 视图绑定**
 
+### [Log](https://github.com/XiaoBaiCZ/RecyclerViewExtend/tree/master/log)
+
 ### 介绍
 RecyclerView的扩展，扩展了通用Adapter，通用ViewHolder，统一的配置入口，无需再写Adapter，只需关注数据&视图绑定
 

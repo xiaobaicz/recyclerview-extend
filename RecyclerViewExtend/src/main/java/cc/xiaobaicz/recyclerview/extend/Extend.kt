@@ -34,8 +34,20 @@ class Builder {
      * @param klass 数据类型class
      * @param resId 布局ID
      * @param func 视图绑定函数
+     * @see Builder.addType<T>
      */
+    @Deprecated("the method is deprecated", ReplaceWith("map[D::class.java] = ItemType(resId, func)", ".addType<T>"))
     fun <D: Any> addType(klass: Class<D>, resId: Int, func: (BindFunc<D>)?) {
         map[klass] = ItemType(resId, func)
+    }
+
+    /**
+     * 添加数据/视图类型函数
+     * @param resId 布局ID
+     * @param func 视图绑定函数
+     * @since 0.2
+     */
+    inline fun <reified D: Any> addType(resId: Int, noinline func: (BindFunc<D>)?) {
+        map[D::class.java] = ItemType(resId, func)
     }
 }

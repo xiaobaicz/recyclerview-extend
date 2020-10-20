@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @param lm 布局管理器：默认线性布局
  * @param config 类型建造者函数，通过 addType 添加 类型对应布局 和 视图绑定函数
  */
-fun <D: Any> RecyclerView.config(data: MutableList<D>, lm: RecyclerView.LayoutManager = LinearLayoutManager(context), config: Builder.()->Unit) {
+fun RecyclerView.config(data: MutableList<Any>, lm: RecyclerView.LayoutManager = LinearLayoutManager(context), config: Builder.()->Unit) {
     //生成类型建造者
     val builder = Builder()
     //用户添加类型配置
@@ -17,7 +17,7 @@ fun <D: Any> RecyclerView.config(data: MutableList<D>, lm: RecyclerView.LayoutMa
     //布局管理器配置
     layoutManager = lm
     //通用适配器配置
-    adapter = AdapterX(context, data, builder.map)
+    adapter = AdapterX(context, data, builder.types, builder.holderType)
 }
 
 /**
@@ -27,7 +27,11 @@ class Builder {
     /**
      * 类型，布局，视图绑定函数 的集合，以数据类型为 Key
      */
-    val map = HashMap<Class<*>, ItemType<*>>()
+    val types = HashMap<Class<Any>, ItemType>()
+    /**
+     * 类型，布局，视图绑定函数 的集合，以数据类型为 Key
+     */
+    val holderType = HashMap<Int, Class<RecyclerView.ViewHolder>>()
 
     /**
      * 添加数据/视图类型函数
@@ -36,9 +40,11 @@ class Builder {
      * @param func 视图绑定函数
      * @see Builder.addType<T>
      */
+    @Suppress("UNCHECKED_CAST")
     @Deprecated("the method is deprecated", ReplaceWith("map[D::class.java] = ItemType(resId, func)", ".addType<T>"))
-    fun <D: Any> addType(klass: Class<D>, resId: Int, func: (BindFunc<D>)?) {
-        map[klass] = ItemType(resId, func)
+    fun <D: Any> addType(klass: Class<D>, resId: Int, func: BindFunc<D, ViewHolderX>?) {
+        types[klass as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>)
+        holderType[resId] = ViewHolderX::class.java as Class<RecyclerView.ViewHolder>
     }
 
     /**
@@ -47,7 +53,23 @@ class Builder {
      * @param func 视图绑定函数
      * @since 0.2
      */
-    inline fun <reified D: Any> addType(resId: Int, noinline func: (BindFunc<D>)?) {
-        map[D::class.java] = ItemType(resId, func)
+    @Suppress("UNCHECKED_CAST")
+    inline fun <reified D: Any, reified H: RecyclerView.ViewHolder> addType(resId: Int, func: BindFunc<D, H>?) {
+        types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>)
+        holderType[resId] = H::class.java as Class<RecyclerView.ViewHolder>
     }
+
+    /**
+     * 添加数据/视图类型函数
+     * @param resId 布局ID
+     * @param func 视图绑定函数
+     * @since 0.3
+     */
+    @Suppress("UNCHECKED_CAST")
+    inline fun <reified D: Any> addType(resId: Int, func: BindFunc<D, ViewHolderX>?): Int {
+        types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>)
+        holderType[resId] = ViewHolderX::class.java as Class<RecyclerView.ViewHolder>
+        return 0
+    }
+
 }

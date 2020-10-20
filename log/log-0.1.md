@@ -4,8 +4,6 @@
 - 无需写Adapter模板
 - 只需关注**数据源 & 视图绑定**
 
-### [Log](https://github.com/XiaoBaiCZ/RecyclerViewExtend/tree/master/log)
-
 ### 介绍
 RecyclerView的扩展，扩展了通用Adapter，通用ViewHolder，统一的配置入口，无需再写Adapter，只需关注数据&视图绑定
 
@@ -49,18 +47,18 @@ class MainActivity : AppCompatActivity() {
         //扩展的使用
         list.config(data) {
             //添加视图类型
-            addType<Head>(R.layout.item_head) { d, h, p -> // d: 数据, h: viewholder, p: 下标
+            addType(Head::class.java, R.layout.item_head) { d, h, p -> // d: 数据, h: viewholder, p: 下标
                 //视图绑定数据
                 h.root.img.setImageResource(d.img)
             }
             //添加视图类型
-            addType<User1>(R.layout.item_user1) { d, h, p -> // d: 数据, h: viewholder, p: 下标
+            addType(User1::class.java, R.layout.item_user1) { d, h, p -> // d: 数据, h: viewholder, p: 下标
                 //视图绑定数据
                 h.root.name1.text = "Name: ${d.name}"
                 h.root.age1.text = "Age: ${d.age}"
             }
             //添加视图类型
-            addType<User2>(R.layout.item_user2) { d, h, p -> // d: 数据, h: viewholder, p: 下标
+            addType(User2::class.java, R.layout.item_user2) { d, h, p -> // d: 数据, h: viewholder, p: 下标
                 //视图绑定数据
                 h.root.name2.text = "Name: ${d.name}"
                 h.root.age2.text = "Age: ${d.age}"

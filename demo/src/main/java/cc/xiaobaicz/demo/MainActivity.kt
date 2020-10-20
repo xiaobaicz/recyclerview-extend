@@ -1,7 +1,10 @@
 package cc.xiaobaicz.demo
 
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import cc.xiaobaicz.recyclerview.extend.config
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_head.view.*
@@ -41,16 +44,27 @@ class MainActivity : AppCompatActivity() {
                 h.root.name1.text = "Name: ${d.name}"
                 h.root.age1.text = "Age: ${d.age}"
             }
-            //添加视图类型
-            addType<User2>(R.layout.item_user2) { d, h, p -> // d: 数据, h: viewholder, p: 下标
+            //添加视图类型，KT-Extensions支持
+            addType<User2, KTViewHolder>(R.layout.item_user2) { d, h, p -> // d: 数据, h: viewholder, p: 下标
                 //视图绑定数据
-                h.root.name2.text = "Name: ${d.name}"
-                h.root.age2.text = "Age: ${d.age}"
+                h.name2.text = "Name: ${d.name}"
+                h.age2.text = "Age: ${d.age}"
             }
         }
 
     }
 
+}
+
+//ViewBinding，DataBinding同理
+//KT-Extensions 自定义ViewHolder
+class KTViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    val name2: TextView
+    val age2: TextView
+    init {
+        name2 = view.name2
+        age2 = view.age2
+    }
 }
 
 data class Head(var img: Int)

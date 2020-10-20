@@ -16,6 +16,8 @@ RecyclerView的扩展，扩展了通用Adapter，通用ViewHolder，统一的配
 > **无需书写适配器Adapter，通过config函数传入 数据源 & 布局管理器（默认线性布局）**
 > **再通过addType函数添加 数据类 对应 的 class，布局id，视图绑定函数 即可**
 > **多布局情况只需多次调用addType进行添加即可**
+> **支持自定义ViewHolder**
+> **支持ViewBinding，DataBinding，KT-Extensions等工具，通过自定义ViewHolder**
 
 ### 使用示例
 ~~~ Kotlin
@@ -23,6 +25,17 @@ RecyclerView的扩展，扩展了通用Adapter，通用ViewHolder，统一的配
 data class Head(var img: Int)
 data class User1(var name: String, var age: Int)
 data class User2(var name: String, var age: Int)
+
+//ViewBinding，DataBinding同理
+//KT-Extensions 自定义ViewHolder
+class KTViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    val name2: TextView
+    val age2: TextView
+    init {
+        name2 = view.name2
+        age2 = view.age2
+    }
+}
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,11 +72,11 @@ class MainActivity : AppCompatActivity() {
                 h.root.name1.text = "Name: ${d.name}"
                 h.root.age1.text = "Age: ${d.age}"
             }
-            //添加视图类型
-            addType<User2>(R.layout.item_user2) { d, h, p -> // d: 数据, h: viewholder, p: 下标
+            //添加视图类型，KT-Extensions支持
+            addType<User2, KTViewHolder>(R.layout.item_user2) { d, h, p -> // d: 数据, h: viewholder, p: 下标
                 //视图绑定数据
-                h.root.name2.text = "Name: ${d.name}"
-                h.root.age2.text = "Age: ${d.age}"
+                h.name2.text = "Name: ${d.name}"
+                h.age2.text = "Age: ${d.age}"
             }
         }
 

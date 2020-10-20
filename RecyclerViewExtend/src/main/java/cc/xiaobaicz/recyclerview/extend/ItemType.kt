@@ -1,9 +1,11 @@
 package cc.xiaobaicz.recyclerview.extend
 
+import androidx.recyclerview.widget.RecyclerView
+
 /**
  * Item类型数据集
  */
-data class ItemType<D: Any>(
+data class ItemType(
     /**
      * Item对应的布局ID
      */
@@ -11,5 +13,5 @@ data class ItemType<D: Any>(
     /**
      * Item绑定数据的回调函数
      */
-    val bind: (BindFunc<D>)?
+    val bind: BindFunc<Any, RecyclerView.ViewHolder>?
 )

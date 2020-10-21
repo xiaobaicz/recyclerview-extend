@@ -9,6 +9,23 @@
 ### 介绍
 RecyclerView的扩展，扩展了通用Adapter，通用ViewHolder，统一的配置入口，无需再写Adapter，只需关注数据&视图绑定
 
+### 导入
+~~~
+//root -> build.gradle
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+~~~
+~~~
+//project -> build.gradle
+dependencies {
+    implementation 'com.github.XiaoBaiCZ:RecyclerViewExtend:v0.3'
+}
+~~~
+
 ### 效果图
 ![list1.png](https://upload-images.jianshu.io/upload_images/4191132-ad053b8c9f96acff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 

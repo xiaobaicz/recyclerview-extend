@@ -1,5 +1,5 @@
 include ':demo-databinding'
-include ':demo-viewmodel'
+include ':demo-viewbinding'
 include ':RecyclerViewExtend'
 include ':demo'
 rootProject.name = "LibRecyclerViewExtend"

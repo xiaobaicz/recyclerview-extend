@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="cc.xiaobaicz.demo_viewmodel">
+    package="cc.xiaobaicz.demo_viewbinding">
 
     <application
         android:allowBackup="false"
@@ -12,9 +12,9 @@
         android:theme="@style/Theme.LibRecyclerViewExtend"
         tools:ignore="AllowBackup">
 
-        <activity android:name=".MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cc.xiaobaicz.demo_viewbinding.MainActivity" android:screenOrientation="portrait"/>
 
-        <activity-alias android:name="Launch" android:targetActivity=".MainActivity">
+        <activity-alias android:name="Launch" android:targetActivity="cc.xiaobaicz.demo_viewbinding.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

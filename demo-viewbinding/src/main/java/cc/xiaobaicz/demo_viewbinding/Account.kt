@@ -1,8 +1,8 @@
-package cc.xiaobaicz.demo_viewmodel
+package cc.xiaobaicz.demo_viewbinding
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import cc.xiaobaicz.demo_viewmodel.databinding.ItemAccountBinding
+import cc.xiaobaicz.demo_viewbinding.databinding.ItemAccountBinding
 
 /**
  * 数据类

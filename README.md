@@ -39,7 +39,7 @@ dependencies {
 ### 效果图
 ![list1.png](https://upload-images.jianshu.io/upload_images/4191132-ad053b8c9f96acff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-### 使用示例
+### 使用示例 （Demo有注释）
 [基本使用 Demo （多类型）](https://github.com/XiaoBaiCZ/RecyclerViewExtend/blob/master/demo/src/main/java/cc/xiaobaicz/demo/MainActivity.kt)
 
 [配合ViewBinding使用 Demo](https://github.com/XiaoBaiCZ/RecyclerViewExtend/tree/master/demo-viewbinding/src/main/java/cc/xiaobaicz/demo_viewbinding)

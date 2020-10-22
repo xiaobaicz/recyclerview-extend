@@ -1,3 +1,4 @@
+include ':demo-databinding'
 include ':demo-viewmodel'
 include ':RecyclerViewExtend'
 include ':demo'

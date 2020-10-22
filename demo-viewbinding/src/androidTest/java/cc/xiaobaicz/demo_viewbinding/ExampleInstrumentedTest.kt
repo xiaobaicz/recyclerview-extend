@@ -1,4 +1,4 @@
-package cc.xiaobaicz.demo_viewmodel
+package cc.xiaobaicz.demo_viewbinding
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

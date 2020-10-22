@@ -1,8 +1,8 @@
-package cc.xiaobaicz.demo_viewmodel
+package cc.xiaobaicz.demo_viewbinding
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import cc.xiaobaicz.demo_viewmodel.databinding.ActivityMainBinding
+import cc.xiaobaicz.demo_viewbinding.databinding.ActivityMainBinding
 import cc.xiaobaicz.recyclerview.extend.config
 
 class MainActivity: AppCompatActivity() {

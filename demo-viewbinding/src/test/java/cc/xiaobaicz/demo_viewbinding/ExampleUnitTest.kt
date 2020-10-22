@@ -1,4 +1,4 @@
-package cc.xiaobaicz.demo_viewmodel
+package cc.xiaobaicz.demo_viewbinding
 
 import org.junit.Test
 

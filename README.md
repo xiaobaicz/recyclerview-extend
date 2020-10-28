@@ -20,7 +20,7 @@
 > **支持ViewBinding，DataBinding，KT-Extensions等工具，通过自定义ViewHolder**
 
 ### 导入 (需Kotlin1.4以上，因使用了SAM接口）
-~~~
+~~~ gradle
 //root -> build.gradle
 allprojects {
     repositories {
@@ -29,15 +29,73 @@ allprojects {
     }
 }
 ~~~
-~~~
+~~~ gradle
 //project -> build.gradle
 dependencies {
     implementation 'com.github.XiaoBaiCZ:RecyclerViewExtend:v0.3'
 }
 ~~~
 
-### 效果图
-![list1.png](https://upload-images.jianshu.io/upload_images/4191132-ad053b8c9f96acff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+### API使用介绍
+~~~ kotlin
+/**
+ * 配置入口
+ * @param data 数据源：任意类型，支持混合类型
+ * @param lm 布局管理器：默认线性布局
+ * @param config 类型建造者函数，通过 addType 添加 类型对应布局 和 视图绑定函数
+ */
+fun RecyclerView.config(
+    data: MutableList,
+    lm: RecyclerView.LayoutManager = LinearLayoutManager(context),
+    config: Builder.()->Unit
+)
+
+
+//Builder类
+//自定义ViewHolder
+/**
+ * 添加数据/视图类型函数
+ * @param resId 布局ID
+ * @param func 视图绑定函数
+ */
+fun <D, V> addType(resId: Int, func: BindFunc)
+
+
+//默认ViewHolderX
+/**
+ * 添加数据/视图类型函数
+ * @param resId 布局ID
+ * @param func 视图绑定函数
+ */
+fun <D> addType(resId: Int, func: BindFunc)
+~~~
+
+### 使用流程
+~~~ kotlin
+val data: ArrayList<Any>()      //数据源
+val list: RecyclerView = ...    //RecyclerView 实例
+
+//调用配置函数，传入数据源（可接收多类型，通过Any），默认线性布局
+list.config(data) {
+
+    //你的 数据类型 自动跟 布局ID 绑定
+    addType<你的数据类型1, 你的自定义ViewHolder1>(你的布局ID1) { d, h, p ->   //d 数据，h ViewHolder， p 下标
+        //这里执行视图的数据绑定
+    }
+    
+    //可多次调用addType来进行多布局适配
+    addType<你的数据类型2, 你的自定义ViewHolder2>(你的布局ID2) { d, h, p ->   //d 数据，h ViewHolder， p 下标
+        //这里执行视图的数据绑定
+    }
+    
+}
+
+//配置布局管理器
+val lm: GridLayoutManager   //其他布局管理器
+list.config(data, lm) {
+    ...
+}
+~~~
 
 ### 使用示例 （Demo有注释）
 [基本使用 Demo （多类型）](https://github.com/XiaoBaiCZ/RecyclerViewExtend/blob/master/demo/src/main/java/cc/xiaobaicz/demo/MainActivity.kt)
@@ -45,6 +103,9 @@ dependencies {
 [配合ViewBinding使用 Demo](https://github.com/XiaoBaiCZ/RecyclerViewExtend/tree/master/demo-viewbinding/src/main/java/cc/xiaobaicz/demo_viewbinding)
 
 [配合DataBinding使用 Demo](https://github.com/XiaoBaiCZ/RecyclerViewExtend/tree/master/demo-databinding/src/main/java/cc/xiaobaicz/demo_databinding)
+
+### 效果图
+![list1.png](https://upload-images.jianshu.io/upload_images/4191132-ad053b8c9f96acff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ### 如喜欢且很有帮助可以请作者吃冰棒哦~~~
 ![zfb.jpg](https://upload-images.jianshu.io/upload_images/4191132-ba6603f3825d069f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)

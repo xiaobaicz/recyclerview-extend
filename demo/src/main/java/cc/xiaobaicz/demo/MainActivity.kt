@@ -1,17 +1,12 @@
 package cc.xiaobaicz.demo
 
 import android.os.Bundle
-import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import cc.xiaobaicz.recyclerview.extend.config
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.item_head.view.*
-import kotlinx.android.synthetic.main.item_user1.view.age as age1
-import kotlinx.android.synthetic.main.item_user1.view.name as name1
-import kotlinx.android.synthetic.main.item_user2.view.age as age2
-import kotlinx.android.synthetic.main.item_user2.view.name as name2
+import kotlinx.android.synthetic.main.item_user2.view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,35 +31,27 @@ class MainActivity : AppCompatActivity() {
             //添加视图类型
             addType<Head>(R.layout.item_head) { d, h, p -> // d: 数据, h: viewholder, p: 下标
                 //视图绑定数据
-                h.root.img.setImageResource(d.img)
+                //通过默认ViewHolder方式  PS：（该方式缓存了View实例）
+                h.findViewById<ImageView>(R.id.img).setImageResource(d.img)
             }
             //添加视图类型
+            //通过默认ViewHolder方式  PS：（该方式缓存了View实例，性能较好）
             addType<User1>(R.layout.item_user1) { d, h, p -> // d: 数据, h: viewholder, p: 下标
                 //视图绑定数据
-                h.root.name1.text = "Name: ${d.name}"
-                h.root.age1.text = "Age: ${d.age}"
+                h.findViewById<TextView>(R.id.name).text = "Name: ${d.name}"
+                h.findViewById<TextView>(R.id.age).text = "Age: ${d.age}"
             }
             //添加视图类型，KT-Extensions支持
-            addType<User2, KTViewHolder>(R.layout.item_user2) { d, h, p -> // d: 数据, h: viewholder, p: 下标
+            addType<User2>(R.layout.item_user2) { d, h, p -> // d: 数据, h: viewholder, p: 下标
                 //视图绑定数据
-                h.name2.text = "Name: ${d.name}"
-                h.age2.text = "Age: ${d.age}"
+                //通过KT-Extension方式  PS：（该场景下没有缓存View，每次都直接findViewByID，性能最差）
+                h.root.name.text = "Name: ${d.name}"
+                h.root.age.text = "Age: ${d.age}"
             }
         }
 
     }
 
-}
-
-//ViewBinding，DataBinding同理
-//KT-Extensions 自定义ViewHolder
-class KTViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val name2: TextView
-    val age2: TextView
-    init {
-        name2 = view.name2
-        age2 = view.age2
-    }
 }
 
 data class Head(var img: Int)

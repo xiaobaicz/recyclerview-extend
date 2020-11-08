@@ -35,27 +35,13 @@ class Builder {
 
     /**
      * 添加数据/视图类型函数
-     * @param klass 数据类型class
-     * @param resId 布局ID
-     * @param func 视图绑定函数
-     * @see Builder.addType<T>
-     */
-    @Suppress("UNCHECKED_CAST")
-    @Deprecated("the method is deprecated", ReplaceWith("map[D::class.java] = ItemType(resId, func)", ".addType<T>"))
-    fun <D: Any> addType(klass: Class<D>, resId: Int, func: BindFunc<D, ViewHolderX>?) {
-        types[klass as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>)
-        holderType[resId] = ViewHolderX::class.java as Class<RecyclerView.ViewHolder>
-    }
-
-    /**
-     * 添加数据/视图类型函数
      * @param resId 布局ID
      * @param func 视图绑定函数
      * @since 0.2
      */
     @Suppress("UNCHECKED_CAST")
-    inline fun <reified D: Any, reified H: RecyclerView.ViewHolder> addType(resId: Int, func: BindFunc<D, H>?) {
-        types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>)
+    inline fun <reified D: Any, reified H: RecyclerView.ViewHolder> addType(resId: Int, funcPayloads: BindFuncPayloads<D, H>? = null, func: BindFunc<D, H>?) {
+        types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>, funcPayloads as BindFuncPayloads<Any, RecyclerView.ViewHolder>?)
         holderType[resId] = H::class.java as Class<RecyclerView.ViewHolder>
     }
 
@@ -66,8 +52,8 @@ class Builder {
      * @since 0.3
      */
     @Suppress("UNCHECKED_CAST")
-    inline fun <reified D: Any> addType(resId: Int, func: BindFunc<D, ViewHolderX>?): Int {
-        types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>)
+    inline fun <reified D: Any> addType(resId: Int, funcPayloads: BindFuncPayloads<D, ViewHolderX>? = null, func: BindFunc<D, ViewHolderX>?): Int {
+        types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>, funcPayloads as BindFuncPayloads<Any, RecyclerView.ViewHolder>?)
         holderType[resId] = ViewHolderX::class.java as Class<RecyclerView.ViewHolder>
         return 0
     }

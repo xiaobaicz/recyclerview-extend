@@ -60,12 +60,31 @@ class AdapterX(
         bind(d, holder, position, type?.bind) //绑定操作
     }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
+        val d = data[position] //数据
+        val dataClass = d.javaClass //数据类Class
+        val type = types[dataClass] //数据类型对应绑定函数
+        if (payloads.isNullOrEmpty() || type?.bindPayloads == null) {
+            super.onBindViewHolder(holder, position, payloads)
+        } else {
+            bind(d, holder, position, type.bindPayloads, payloads) //绑定操作
+        }
+    }
+
     /**
      * 绑定回调函数 Object 转 实际类型
      */
     @Suppress("UNCHECKED_CAST")
     private fun <D: Any, H: RecyclerView.ViewHolder> bind(d: D, viewHolder: H, position: Int, bindFunc: BindFunc<D, H>?) {
         bindFunc?.bind(d, viewHolder, position)
+    }
+
+    /**
+     * 绑定回调函数 Object 转 实际类型
+     */
+    @Suppress("UNCHECKED_CAST")
+    private fun <D: Any, H: RecyclerView.ViewHolder> bind(d: D, viewHolder: H, position: Int, bindFunc: BindFuncPayloads<D, H>?, payloads: MutableList<Any>) {
+        bindFunc?.bind(d, viewHolder, position, payloads)
     }
 
 }

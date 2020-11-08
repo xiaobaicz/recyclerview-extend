@@ -40,6 +40,9 @@ class MainActivity : AppCompatActivity() {
                 //视图绑定数据
                 h.findViewById<TextView>(R.id.name).text = "Name: ${d.name}"
                 h.findViewById<TextView>(R.id.age).text = "Age: ${d.age}"
+                h.findViewById<TextView>(R.id.age).setOnClickListener {
+                    list.adapter?.notifyItemChanged(p, Any())
+                }
             }
             //添加视图类型，KT-Extensions支持
             addType<User2>(R.layout.item_user2) { d, h, p -> // d: 数据, h: viewholder, p: 下标

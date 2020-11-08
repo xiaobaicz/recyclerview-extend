@@ -13,5 +13,9 @@ data class ItemType(
     /**
      * Item绑定数据的回调函数
      */
-    val bind: BindFunc<Any, RecyclerView.ViewHolder>?
+    val bind: BindFunc<Any, RecyclerView.ViewHolder>?,
+    /**
+     * Item绑定数据的回调函数
+     */
+    val bindPayloads: BindFuncPayloads<Any, RecyclerView.ViewHolder>? = null
 )

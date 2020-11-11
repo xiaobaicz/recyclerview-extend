@@ -1,0 +1,1 @@
+- 调整BindFunc的Payloads函数，实现了局部刷新View

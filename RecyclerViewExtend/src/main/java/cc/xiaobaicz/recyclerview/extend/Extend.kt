@@ -40,8 +40,8 @@ class Builder {
      * @since 0.2
      */
     @Suppress("UNCHECKED_CAST")
-    inline fun <reified D: Any, reified H: RecyclerView.ViewHolder> addType(resId: Int, funcPayloads: BindFuncPayloads<D, H>? = null, func: BindFunc<D, H>?) {
-        types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>, funcPayloads as BindFuncPayloads<Any, RecyclerView.ViewHolder>?)
+    inline fun <reified D: Any, reified H: RecyclerView.ViewHolder> addType(resId: Int, func: BindFunc<D, H>?) {
+        types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>)
         holderType[resId] = H::class.java as Class<RecyclerView.ViewHolder>
     }
 
@@ -52,8 +52,8 @@ class Builder {
      * @since 0.3
      */
     @Suppress("UNCHECKED_CAST")
-    inline fun <reified D: Any> addType(resId: Int, funcPayloads: BindFuncPayloads<D, ViewHolderX>? = null, func: BindFunc<D, ViewHolderX>?): Int {
-        types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>, funcPayloads as BindFuncPayloads<Any, RecyclerView.ViewHolder>?)
+    inline fun <reified D: Any> addType(resId: Int, func: BindFunc<D, ViewHolderX>?): Int {
+        types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>)
         holderType[resId] = ViewHolderX::class.java as Class<RecyclerView.ViewHolder>
         return 0
     }

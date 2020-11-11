@@ -32,7 +32,7 @@ allprojects {
 ~~~ gradle
 //project -> build.gradle
 dependencies {
-    implementation 'com.github.XiaoBaiCZ:RecyclerViewExtend:0.5'
+    implementation 'com.github.XiaoBaiCZ:RecyclerViewExtend:0.5.1'
 }
 ~~~
 

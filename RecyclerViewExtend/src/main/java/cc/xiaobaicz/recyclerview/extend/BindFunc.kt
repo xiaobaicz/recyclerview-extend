@@ -14,5 +14,5 @@ fun interface BindFunc<D: Any, H: RecyclerView.ViewHolder> {
      * @param holder view holder
      * @param position 下标
      */
-    fun bind(data: D, holder: H, position: Int)
+    fun bind(data: D, holder: H, position: Int, payloads: MutableList<Any>)
 }

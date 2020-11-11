@@ -19,7 +19,7 @@ class MainActivity: AppCompatActivity() {
 
         //RecyclerView配置扩展
         bind.list.config(data) {
-            addType<Account, Account.ViewHolder>(R.layout.item_account) { d, h, p ->
+            addType<Account, Account.ViewHolder>(R.layout.item_account) { d, h, p, payloads ->
                 //数据绑定
                 with(h.bind) {
                     icon.setImageResource(d.icon)

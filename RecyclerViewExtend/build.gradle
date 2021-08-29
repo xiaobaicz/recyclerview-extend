@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 2108292
-        versionName "0.5.3"
+        versionCode 2108293
+        versionName "0.6.0"
     }
 
     buildTypes {
@@ -50,7 +50,7 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId = 'cc.xiaobaicz.recyclerview.extend'
                 artifactId = 'extend'
-                version = '0.5.3'
+                version = '0.6.0'
             }
         }
     }

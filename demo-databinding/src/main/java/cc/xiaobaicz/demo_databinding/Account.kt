@@ -12,7 +12,7 @@ import cc.xiaobaicz.demo_databinding.databinding.ItemAccountBinding
 data class Account(val icon: Int, val name: String, val phone: String) {
 
     companion object {
-        @BindingAdapter("app:img")
+        @BindingAdapter("img")
         @JvmStatic
         fun bindImg(view: ImageView, id: Int) {
             view.setImageResource(id)

@@ -9,29 +9,28 @@ import androidx.recyclerview.widget.RecyclerView
  * @param lm 布局管理器：默认线性布局
  * @param config 类型建造者函数，通过 addType 添加 类型对应布局 和 视图绑定函数
  */
-fun RecyclerView.config(data: MutableList<Any>, lm: RecyclerView.LayoutManager = LinearLayoutManager(context), config: Builder.()->Unit) {
+fun RecyclerView.config(data: MutableList<Any>, lm: RecyclerView.LayoutManager = LinearLayoutManager(context), config: Builder.()->Unit): Content {
+    val content = Content(data)
     //生成类型建造者
-    val builder = Builder()
+    val builder = Builder(content)
     //用户添加类型配置
     config(builder)
     //布局管理器配置
     layoutManager = lm
     //通用适配器配置
-    adapter = AdapterX(context, data, builder.types, builder.holderType)
+    adapter = AdapterX(context, content)
+    return content
 }
 
 /**
  * 类型建造者
  */
-class Builder {
+class Builder(
     /**
-     * 类型，布局，视图绑定函数 的集合，以数据类型为 Key
+     * 列表内容
      */
-    val types = HashMap<Class<Any>, ItemType>()
-    /**
-     * 类型，布局，视图绑定函数 的集合，以数据类型为 Key
-     */
-    val holderType = HashMap<Int, Class<RecyclerView.ViewHolder>>()
+    val content: Content
+) {
 
     /**
      * 添加数据/视图类型函数
@@ -41,8 +40,8 @@ class Builder {
      */
     @Suppress("UNCHECKED_CAST")
     inline fun <reified D: Any, reified H: RecyclerView.ViewHolder> addType(resId: Int, func: BindFunc<D, H>?) {
-        types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>)
-        holderType[resId] = H::class.java as Class<RecyclerView.ViewHolder>
+        content.types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>?)
+        content.holderTypes[resId] = H::class.java as Class<RecyclerView.ViewHolder>
     }
 
     /**
@@ -53,9 +52,75 @@ class Builder {
      */
     @Suppress("UNCHECKED_CAST")
     inline fun <reified D: Any> addType(resId: Int, func: BindFunc<D, ViewHolderX>?): Int {
-        types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>)
-        holderType[resId] = ViewHolderX::class.java as Class<RecyclerView.ViewHolder>
+        content.types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>?)
+        content.holderTypes[resId] = ViewHolderX::class.java as Class<RecyclerView.ViewHolder>
         return 0
     }
 
+    /**
+     * 添加头部类型函数
+     * @param resId 布局ID
+     * @param func 视图绑定函数
+     * @since 0.6.0
+     */
+    @Suppress("UNCHECKED_CAST")
+    inline fun <reified D: Any, reified H: RecyclerView.ViewHolder> addHeader(header: D, resId: Int, func: BindFunc<D, H>? = null) {
+        content.headers.add(header)
+        content.types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>?)
+        content.holderTypes[resId] = H::class.java as Class<RecyclerView.ViewHolder>
+    }
+
+    /**
+     * 添加头部类型函数
+     * @param resId 布局ID
+     * @param func 视图绑定函数
+     * @since 0.6.0
+     */
+    @Suppress("UNCHECKED_CAST")
+    inline fun <reified D: Any> addHeader(header: D, resId: Int, func: BindFunc<D, ViewHolderX>? = null): Int {
+        content.headers.add(header)
+        content.types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>?)
+        content.holderTypes[resId] = ViewHolderX::class.java as Class<RecyclerView.ViewHolder>
+        return 0
+    }
+
+    /**
+     * 添加尾部类型函数
+     * @param resId 布局ID
+     * @param func 视图绑定函数
+     * @since 0.6.0
+     */
+    @Suppress("UNCHECKED_CAST")
+    inline fun <reified D: Any, reified H: RecyclerView.ViewHolder> addFoot(foot: D, resId: Int, func: BindFunc<D, H>? = null) {
+        content.foots.add(foot)
+        content.types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>?)
+        content.holderTypes[resId] = H::class.java as Class<RecyclerView.ViewHolder>
+    }
+
+    /**
+     * 添加尾部类型函数
+     * @param resId 布局ID
+     * @param func 视图绑定函数
+     * @since 0.6.0
+     */
+    @Suppress("UNCHECKED_CAST")
+    inline fun <reified D: Any> addFoot(foot: D, resId: Int, func: BindFunc<D, ViewHolderX>? = null): Int {
+        content.foots.add(foot)
+        content.types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>?)
+        content.holderTypes[resId] = ViewHolderX::class.java as Class<RecyclerView.ViewHolder>
+        return 0
+    }
+
+}
+
+/**
+ * 获取AdapterX
+ * @since 0.6.0
+ */
+val RecyclerView.adapterX: AdapterX get() {
+    val adapter = adapter
+    if (adapter is AdapterX) {
+        return adapter
+    }
+    throw ClassCastException("${adapter?.javaClass} is not ${AdapterX::javaClass}")
 }

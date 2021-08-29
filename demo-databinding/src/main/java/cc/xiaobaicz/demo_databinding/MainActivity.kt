@@ -3,6 +3,7 @@ package cc.xiaobaicz.demo_databinding
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import cc.xiaobaicz.demo_databinding.databinding.ActivityMainBinding
+import cc.xiaobaicz.demo_databinding.entity.*
 import cc.xiaobaicz.recyclerview.extend.config
 
 class MainActivity: AppCompatActivity() {
@@ -26,6 +27,12 @@ class MainActivity: AppCompatActivity() {
                     executePendingBindings()
                 }
             }
+            //添加头部
+            addHeader<Header1>(Header1(), R.layout.item_header1)
+            addHeader<Header2>(Header2(), R.layout.item_header2)
+            //添加尾部
+            addFoot<Foot1>(Foot1(), R.layout.item_foot1)
+            addFoot<Foot2>(Foot2(), R.layout.item_foot2)
         }
 
         //测试数据

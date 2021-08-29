@@ -1,4 +1,4 @@
-package cc.xiaobaicz.demo_databinding
+package cc.xiaobaicz.demo_databinding.entity
 
 import android.view.View
 import android.widget.ImageView

@@ -1,9 +1,12 @@
 package cc.xiaobaicz.demo
 
 import android.os.Bundle
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import cc.xiaobaicz.demo.entity.Foot1
+import cc.xiaobaicz.demo.entity.Foot2
+import cc.xiaobaicz.demo.entity.Header1
+import cc.xiaobaicz.demo.entity.Header2
 import cc.xiaobaicz.recyclerview.extend.config
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_user2.view.*
@@ -16,7 +19,6 @@ class MainActivity : AppCompatActivity() {
 
         //创建数据集
         val data = ArrayList<Any>()
-        data.add(Head(R.mipmap.ic_launcher))
         //测试数据
         for (i in 1..20) {
             if (i and 1 == 0) {
@@ -28,12 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         //扩展的使用
         list.config(data) {
-            //添加视图类型
-            addType<Head>(R.layout.item_head) { d, h, p, payloads -> // d: 数据, h: viewholder, p: 下标, payloads: 局部刷新负载
-                //视图绑定数据
-                //通过默认ViewHolder方式  PS：（该方式缓存了View实例）
-                h.findViewById<ImageView>(R.id.img).setImageResource(d.img)
-            }
             //添加视图类型
             //通过默认ViewHolder方式  PS：（该方式缓存了View实例，性能较好）
             addType<User1>(R.layout.item_user1) { d, h, p, payloads -> // d: 数据, h: viewholder, p: 下标
@@ -51,6 +47,12 @@ class MainActivity : AppCompatActivity() {
                 h.root.name.text = "Name: ${d.name}"
                 h.root.age.text = "Age: ${d.age}"
             }
+            //添加头部
+            addHeader<Header1>(Header1(), R.layout.item_header1)
+            addHeader<Header2>(Header2(), R.layout.item_header2)
+            //添加尾部
+            addFoot<Foot1>(Foot1(), R.layout.item_foot1)
+            addFoot<Foot2>(Foot2(), R.layout.item_foot2)
         }
 
     }

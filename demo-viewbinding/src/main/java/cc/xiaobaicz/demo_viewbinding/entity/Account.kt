@@ -1,4 +1,4 @@
-package cc.xiaobaicz.demo_viewbinding
+package cc.xiaobaicz.demo_viewbinding.entity
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

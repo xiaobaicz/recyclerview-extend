@@ -18,6 +18,8 @@
 > **支持自定义ViewHolder**
 > 
 > **支持ViewBinding，DataBinding，KT-Extensions等工具，通过自定义ViewHolder**
+>
+> **支持 Header, Foot 视图添加，具体可查看Demo调用相当简单**
 
 ### 导入 (需Kotlin1.4以上，因使用了SAM接口）
 ~~~ gradle

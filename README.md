@@ -3,6 +3,8 @@
 - 提高RecycleView的**使用效率**
 - 无需写Adapter模板
 - 只需关注**数据源 & 视图绑定**
+- 化头/尾部试图的添加
+- 多列表拼接
 
 ### [Log](https://github.com/XiaoBaiCZ/RecyclerViewExtend/tree/master/log)
 
@@ -20,6 +22,15 @@
 > **支持ViewBinding，DataBinding，KT-Extensions等工具，通过自定义ViewHolder**
 >
 > **支持 Header, Foot 视图添加，具体可查看Demo调用相当简单**
+>
+> **支持多列表拼接**
+
+### 使用示例 （Demo有注释）
+[基本使用 Demo （多类型）](https://github.com/XiaoBaiCZ/RecyclerViewExtend/blob/master/demo/src/main/java/cc/xiaobaicz/demo/MainActivity.kt)
+
+[配合ViewBinding使用 Demo](https://github.com/XiaoBaiCZ/RecyclerViewExtend/tree/master/demo-viewbinding/src/main/java/cc/xiaobaicz/demo_viewbinding)
+
+[配合DataBinding使用 Demo](https://github.com/XiaoBaiCZ/RecyclerViewExtend/tree/master/demo-databinding/src/main/java/cc/xiaobaicz/demo_databinding)
 
 ### 导入 (需Kotlin1.4以上，因使用了SAM接口）
 ~~~ gradle
@@ -34,7 +45,7 @@ allprojects {
 ~~~ gradle
 //project -> build.gradle
 dependencies {
-    implementation 'com.github.XiaoBaiCZ:RecyclerViewExtend:0.6.0'
+    implementation 'com.github.XiaoBaiCZ:RecyclerViewExtend:0.6.1'
 }
 ~~~
 
@@ -75,6 +86,7 @@ fun <D> addType(resId: Int, func: BindFunc)
 ### 使用流程
 ~~~ kotlin
 val data: ArrayList<Any>()      //数据源
+val data2: ArrayList<Any>()      //拼接数据源
 val list: RecyclerView = ...    //RecyclerView 实例
 
 //调用配置函数，传入数据源（可接收多类型，通过Any），默认线性布局
@@ -89,6 +101,14 @@ list.config(data) {
     addType<你的数据类型2, 你的自定义ViewHolder2>(你的布局ID2) { d, h, p ->   //d 数据，h ViewHolder， p 下标
         //这里执行视图的数据绑定
     }
+    //添加头部
+    addHeader<Header1>(Header1(), R.layout.item_header1)
+    addHeader<Header2>(Header2(), R.layout.item_header2)
+    //添加尾部
+    addFoot<Foot1>(Foot1(), R.layout.item_foot1)
+    ddFoot<Foot2>(Foot2(), R.layout.item_foot2)
+    //拼接列表，第一种方式
+    concatContent(data2)
     
 }
 
@@ -98,13 +118,6 @@ list.config(data, lm) {
     ...
 }
 ~~~
-
-### 使用示例 （Demo有注释）
-[基本使用 Demo （多类型）](https://github.com/XiaoBaiCZ/RecyclerViewExtend/blob/master/demo/src/main/java/cc/xiaobaicz/demo/MainActivity.kt)
-
-[配合ViewBinding使用 Demo](https://github.com/XiaoBaiCZ/RecyclerViewExtend/tree/master/demo-viewbinding/src/main/java/cc/xiaobaicz/demo_viewbinding)
-
-[配合DataBinding使用 Demo](https://github.com/XiaoBaiCZ/RecyclerViewExtend/tree/master/demo-databinding/src/main/java/cc/xiaobaicz/demo_databinding)
 
 ### 效果图
 ![list1.png](https://upload-images.jianshu.io/upload_images/4191132-ad053b8c9f96acff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)

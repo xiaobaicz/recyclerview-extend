@@ -59,6 +59,10 @@ class Builder(
 
     /**
      * 添加头部类型函数
+     * 如需移除拼接，调用
+     * @see AdapterX.notifyHeaderRemovedX
+     * 如需更新，调用
+     * @see AdapterX.notifyHeaderChangedX
      * @param resId 布局ID
      * @param func 视图绑定函数
      * @since 0.6.0
@@ -72,6 +76,10 @@ class Builder(
 
     /**
      * 添加头部类型函数
+     * 如需移除拼接，调用
+     * @see AdapterX.notifyHeaderRemovedX
+     * 如需更新，调用
+     * @see AdapterX.notifyHeaderChangedX
      * @param resId 布局ID
      * @param func 视图绑定函数
      * @since 0.6.0
@@ -86,6 +94,10 @@ class Builder(
 
     /**
      * 添加尾部类型函数
+     * 如需移除拼接，调用
+     * @see AdapterX.notifyFootRemovedX
+     * 如需更新，调用
+     * @see AdapterX.notifyFootChangedX
      * @param resId 布局ID
      * @param func 视图绑定函数
      * @since 0.6.0
@@ -99,6 +111,10 @@ class Builder(
 
     /**
      * 添加尾部类型函数
+     * 如需移除拼接，调用
+     * @see AdapterX.notifyFootRemovedX
+     * 如需更新，调用
+     * @see AdapterX.notifyFootChangedX
      * @param resId 布局ID
      * @param func 视图绑定函数
      * @since 0.6.0
@@ -109,6 +125,14 @@ class Builder(
         content.types[D::class.java as Class<Any>] = ItemType(resId, func as BindFunc<Any, RecyclerView.ViewHolder>?)
         content.holderTypes[resId] = ViewHolderX::class.java as Class<RecyclerView.ViewHolder>
         return 0
+    }
+
+    /**
+     * 拼接主内容列表，如需移除拼接，调用
+     * @see AdapterX.removeContent
+     */
+    fun concatContent(content: MutableList<Any>) {
+        this.content.concatContent(content)
     }
 
 }

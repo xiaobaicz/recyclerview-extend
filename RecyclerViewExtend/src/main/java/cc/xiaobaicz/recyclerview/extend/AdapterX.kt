@@ -140,7 +140,7 @@ class AdapterX(context: Context, val content: Content) : RecyclerView.Adapter<Re
      * @since 0.6.0
      */
     fun notifyFootChangedX(position: Int) {
-        notifyItemChanged(content.headers.size + content.contents.size + position)
+        notifyItemChanged(content.headers.size + content.bodySize() + position)
     }
 
     /**
@@ -158,7 +158,25 @@ class AdapterX(context: Context, val content: Content) : RecyclerView.Adapter<Re
      */
     fun notifyFootRemovedX(position: Int) {
         content.foots.remove(position)
-        notifyItemRemoved(content.headers.size + content.contents.size + position)
+        notifyItemRemoved(content.headers.size + content.bodySize() + position)
+    }
+
+    /**
+     * 列表拼接
+     */
+    fun concatContent(content: MutableList<out Any>) {
+        val oldSize = this.content.size
+        this.content.concatContent(content)
+        notifyItemRangeInsertedX(oldSize, content.size)
+    }
+
+    /**
+     * 移除主列表拼接
+     */
+    fun removeContent(content: MutableList<out Any>) {
+        val oldSize = this.content.size
+        this.content.removeContent(content)
+        notifyItemRangeRemovedX(oldSize, content.size)
     }
 
 }

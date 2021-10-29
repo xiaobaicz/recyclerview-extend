@@ -9,7 +9,7 @@ class Content(
     /**
      * 内容类型
      */
-    val contents: MutableList<Any>,
+    val contents: MutableList<out Any>,
     /**
      * 类型，布局，视图绑定函数 的集合，以数据类型为 Key
      */

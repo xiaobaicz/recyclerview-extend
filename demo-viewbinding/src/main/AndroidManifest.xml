@@ -12,9 +12,9 @@
         android:theme="@style/Theme.LibRecyclerViewExtend"
         tools:ignore="AllowBackup">
 
-        <activity android:name="cc.xiaobaicz.demo_viewbinding.MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait"/>
 
-        <activity-alias android:name="Launch" android:targetActivity="cc.xiaobaicz.demo_viewbinding.MainActivity">
+        <activity-alias android:name="Launch" android:targetActivity=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

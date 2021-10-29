@@ -10,6 +10,8 @@ import cc.xiaobaicz.demo.entity.Header2
 import cc.xiaobaicz.recyclerview.extend.config
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_user2.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
                 data.add(User2("user$i", 18 + i))
             }
         }
+        val data2 = data.clone() as ArrayList<Any>
 
         //扩展的使用
         list.config(data) {
@@ -53,7 +56,23 @@ class MainActivity : AppCompatActivity() {
             //添加尾部
             addFoot<Foot1>(Foot1(), R.layout.item_foot1)
             addFoot<Foot2>(Foot2(), R.layout.item_foot2)
+            //拼接列表，第一种方式
+            concatContent(data2)
         }
+
+//        //拼接列表，第二种方式
+//        bind.list.adapterX.concatContent(data2)
+
+//        bind.list.adapterX.apply {
+//            //更新头部
+//            notifyHeaderChangedX(0)
+//            //删除头部
+//            notifyHeaderRemovedX(0)
+//            //更新尾部
+//            notifyFootChangedX(0)
+//            //删除尾部
+//            notifyFootRemovedX(0)
+//        }
 
     }
 

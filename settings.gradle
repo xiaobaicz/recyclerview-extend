@@ -1,4 +1,0 @@
-include ':demo-databinding'
-include ':demo-viewbinding'
-include ':RecyclerViewExtend'
-rootProject.name = "LibRecyclerViewExtend"

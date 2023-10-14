@@ -44,7 +44,7 @@ allprojects {
 ~~~ gradle
 //project -> build.gradle
 dependencies {
-    implementation 'com.github.XiaoBaiCZ:RecyclerViewExtend:0.6.3'
+    implementation 'com.github.xiaobai-cz:recyclerview-extend:0.6.3'
 }
 ~~~
 

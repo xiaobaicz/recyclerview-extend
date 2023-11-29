@@ -3,7 +3,7 @@
 - 提高RecycleView的**使用效率**
 - 无需写Adapter模板
 - 只需关注**数据源 & 视图绑定**
-- 化头/尾部试图的添加
+- 简化头/尾部视图的添加
 - 多列表拼接
 
 ### [Log](https://github.com/XiaoBaiCZ/RecyclerViewExtend/tree/master/log)
@@ -105,7 +105,7 @@ list.config(data) {
     addHeader<Header2>(Header2(), R.layout.item_header2)
     //添加尾部
     addFoot<Foot1>(Foot1(), R.layout.item_foot1)
-    ddFoot<Foot2>(Foot2(), R.layout.item_foot2)
+    addFoot<Foot2>(Foot2(), R.layout.item_foot2)
     //拼接列表，第一种方式
     concatContent(data2)
     

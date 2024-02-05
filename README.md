@@ -1,3 +1,5 @@
+# [点击移步新仓库，更简洁易懂的实现方式](https://github.com/xiaobaicz/common?tab=readme-ov-file#recyclerview%E6%89%A9%E5%B1%95)
+
 # 项目链接 [GitHub 喜欢请给小星星](https://github.com/XiaoBaiCZ/RecyclerViewExtend/)
 ### 项目目标
 - 提高RecycleView的**使用效率**

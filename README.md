@@ -1,7 +1,14 @@
 ### RecyclerView扩展
+
+#### 依赖
+~~~ kotlin
+implementation("io.github.xiaobaicz:recyclerview-extend:2.0.0")
+~~~
+
 #### Adapter抽象
 - BindingAdapter (实现ViewBinding抽象)
 - BindingListAdapter (在ViewBinding抽象基础上实现DiffUtil，刷新数据)
+
 #### Adapter简易实现
 - SimpleAdapter
 ~~~ kotlin

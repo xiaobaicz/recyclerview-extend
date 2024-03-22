@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initNews(): CombineAdapter {
         bind.news.layoutManager = LinearLayoutManager(this)
-        return bind.news.combineAdapter {
+        return bind.news.combineAdapter(this) {
             bind<ItemNewsMsgBinding, Msg>(VT_MSG) { v, d, p ->
                 v.title.text = d.title
                 v.msg.text = d.msg

@@ -1,5 +1,6 @@
 package io.github.xiaobaicz.widget.recyclerview
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
@@ -7,10 +8,10 @@ import androidx.viewbinding.ViewBinding
  * 组合适配器便捷方法
  * @param isolate 隔离ViewType
  */
-fun RecyclerView.combineAdapter(isolate: Boolean = false, config: Combine.() -> Unit): CombineAdapter {
+fun RecyclerView.combineAdapter(owner: LifecycleOwner, isolate: Boolean = false, config: Combine.() -> Unit): CombineAdapter {
     val combine = Combine()
     combine.config()
-    val adapter = CombineAdapter(combine, isolate)
+    val adapter = CombineAdapter(owner, combine, isolate)
     this.adapter = adapter
     return adapter
 }
@@ -44,9 +45,10 @@ class Combine(
  * @param isolate 隔离ViewType
  */
 class CombineAdapter(
+    owner: LifecycleOwner,
     private val combine: Combine,
     private val isolate: Boolean = false,
-) : BindingListAdapter<ViewBinding, ViewType>() {
+) : BindingListAdapter<ViewBinding, ViewType>(owner) {
     // Binding创建回调
     val onBindingCreateMap = HashMap<Class<*>, OnBindingCreate<ViewBinding>>()
 

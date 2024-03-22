@@ -1,16 +1,31 @@
 package io.github.xiaobaicz.widget.recyclerview
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
  * BindingAdapter基础上集成 数据集 & DiffUtil
  */
-abstract class BindingListAdapter<V: ViewBinding, D : Any> : BindingAdapter<V>() {
+abstract class BindingListAdapter<V: ViewBinding, D : Any>(owner: LifecycleOwner) : BindingAdapter<V>() {
+
+    init {
+        owner.lifecycle.addObserver(object : LifecycleEventObserver {
+            override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                if (event == Lifecycle.Event.ON_DESTROY) {
+                    source.lifecycle.removeObserver(this)
+                    mainScope.cancel()
+                }
+            }
+        })
+    }
 
     private val callback: CallbackWrapper<D> = CallbackWrapper()
 
